@@ -1,0 +1,22 @@
+backend: simulator | rest
+array:
+  name: string
+  endpoint: URL
+  username_env: environment-variable-name
+  password_env: environment-variable-name
+  token_env: environment-variable-name
+  verify_tls: boolean
+  timeout_seconds: integer
+resources:
+  pool_name: string
+  default_volume_size_gib: integer
+  initiators: [string]
+  fc_wwpns: [string]
+  target_ports: [string]
+replication:
+  peer_array: string
+  rpo_seconds: integer
+  mode: async | sync
+cleanup:
+  enabled: boolean
+  prefix: string

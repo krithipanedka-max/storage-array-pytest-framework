@@ -1,0 +1,28 @@
+backend: simulator
+array:
+  name: lab-array-01
+  endpoint: https://storage.example.invalid/api
+  username_env: STORAGE_USERNAME
+  password_env: STORAGE_PASSWORD
+  token_env: STORAGE_TOKEN
+  verify_tls: true
+  timeout_seconds: 30
+resources:
+  pool_name: automation_pool
+  default_volume_size_gib: 10
+  initiators:
+    - iqn.1993-08.org.debian:01:host-a
+    - iqn.1993-08.org.debian:01:host-b
+  fc_wwpns:
+    - "10:00:00:00:00:00:00:01"
+    - "10:00:00:00:00:00:00:02"
+  target_ports:
+    - "50:00:00:00:00:00:00:01"
+    - "50:00:00:00:00:00:00:02"
+replication:
+  peer_array: dr-array-01
+  rpo_seconds: 300
+  mode: async
+cleanup:
+  enabled: true
+  prefix: pytest-

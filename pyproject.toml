@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "storage-array-pytest-framework"
+version = "1.0.0"
+description = "Vendor-neutral pytest automation framework for storage array feature validation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pytest>=8.0,<10",
+  "pytest-html>=4.0,<5",
+  "pytest-xdist>=3.5,<4",
+  "pytest-timeout>=2.3,<3",
+  "PyYAML>=6.0,<7",
+  "requests>=2.31,<3",
+]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.6,<1", "mypy>=1.10,<2"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra --strict-markers --strict-config --tb=short --html=reports/report.html --self-contained-html --junitxml=reports/junit.xml"
+testpaths = ["tests"]
+pythonpath = ["src"]
+log_cli = true
+log_cli_level = "INFO"
+log_file = "logs/pytest.log"
+log_file_level = "DEBUG"
+timeout = 120
+markers = [
+  "smoke: critical health and happy-path coverage",
+  "regression: complete feature regression coverage",
+  "destructive: changes array configuration or data",
+  "replication: replication feature tests",
+  "raid: RAID and storage-pool feature tests",
+  "zoning: SAN zoning feature tests",
+  "multipathing: host multipathing tests",
+  "snapshot: snapshot feature tests",
+  "clone: clone feature tests",
+  "metadata: metadata and tagging tests",
+  "integration: cross-feature workflows",
+  "slow: long-running test",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
